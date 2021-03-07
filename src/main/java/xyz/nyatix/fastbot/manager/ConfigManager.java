@@ -28,6 +28,7 @@ public class ConfigManager {
         JSONObject settings = (JSONObject) jsonObject.get("settings");
 
         getConfig().setToken((String) settings.get("token"));
+        getConfig().setPrefix((String) settings.get("prefix"));
     }
 
 }

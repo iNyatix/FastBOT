@@ -6,5 +6,6 @@ import lombok.Data;
 public class Config {
 
     public String token;
+    public String prefix;
 
 }
