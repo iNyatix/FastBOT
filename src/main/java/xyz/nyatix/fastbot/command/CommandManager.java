@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import xyz.nyatix.fastbot.FastBOT;
-import xyz.nyatix.fastbot.command.impl.TestCommand;
+import xyz.nyatix.fastbot.command.impl.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,6 +27,9 @@ public class CommandManager {
 
     public void init() {
         addCommand(new TestCommand());
+        addCommand(new BanCommand());
+        addCommand(new KickCommand());
+        addCommand(new ClearCommand());
     }
 
     public static void executeCommand(final TextChannel textChannel, final String[] args, final Member commandAuthor, GuildMessageReceivedEvent event) {
@@ -62,7 +65,7 @@ public class CommandManager {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("FastBOT | Error!")
                     .setColor(Color.RED)
-                    .setDescription("Correct usage: **" + command.getCommand() + " " + command.getUsage() + "**")
+                    .setDescription("Correct usage: **" + FastBOT.getInstance().getConfigManager().getConfig().getPrefix() + command.getCommand() + " " + command.getUsage() + "**")
                     .setTimestamp(new Date().toInstant())
                     .setFooter("FastBOT");
             textChannel.sendMessage(embedBuilder.build()).queue();
