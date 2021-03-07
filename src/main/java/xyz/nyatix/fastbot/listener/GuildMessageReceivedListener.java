@@ -10,8 +10,8 @@ public class GuildMessageReceivedListener extends ListenerAdapter {
     public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
         if (e.getAuthor().isBot()) return;
 
-        final String message = e.getMessage().getContentRaw();
-        final String[] args = message.split(" ");
+        String message = e.getMessage().getContentRaw();
+        String[] args = message.split(" ");
 
         if (message.startsWith(FastBOT.getInstance().getConfigManager().getConfig().getPrefix())) {
             CommandManager.executeCommand(e.getChannel(), args, e.getMember(), e);

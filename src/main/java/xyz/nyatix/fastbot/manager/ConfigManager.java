@@ -9,9 +9,9 @@ import xyz.nyatix.fastbot.object.Config;
 import java.io.File;
 import java.io.FileReader;
 
+@Getter
 public class ConfigManager {
 
-    @Getter
     private final Config config;
     private final File file;
 

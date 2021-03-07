@@ -15,6 +15,6 @@ public abstract class Command {
     private final String usage;
     private final Permission permission;
 
-    public abstract void executeCommand(final TextChannel textChannel, final String[] args, final Member commandAuthor, GuildMessageReceivedEvent event);
+    public abstract void executeCommand(TextChannel textChannel, String[] args, Member commandAuthor, GuildMessageReceivedEvent event);
 
 }

@@ -32,8 +32,8 @@ public class CommandManager {
         addCommand(new ClearCommand());
     }
 
-    public static void executeCommand(final TextChannel textChannel, final String[] args, final Member commandAuthor, GuildMessageReceivedEvent event) {
-        final Optional<Command> commandOptional = commandsList.stream().filter(command -> (FastBOT.getInstance().getConfigManager().getConfig().getPrefix() + command.getCommand()).equalsIgnoreCase(args[0])).findFirst();
+    public static void executeCommand(TextChannel textChannel, String[] args, Member commandAuthor, GuildMessageReceivedEvent event) {
+        Optional<Command> commandOptional = commandsList.stream().filter(command -> (FastBOT.getInstance().getConfigManager().getConfig().getPrefix() + command.getCommand()).equalsIgnoreCase(args[0])).findFirst();
 
         if (!commandOptional.isPresent()) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -46,7 +46,7 @@ public class CommandManager {
             return;
         }
 
-        final Command command = commandOptional.get();
+        Command command = commandOptional.get();
 
         if (!commandAuthor.hasPermission(command.getPermission())) {
             EmbedBuilder embedBuilder = new EmbedBuilder()
