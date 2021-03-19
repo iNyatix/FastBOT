@@ -32,11 +32,13 @@ public class BanCommand extends Command {
             reason.append(args[i]).append(" ");
         }
 
+        Date date = new Date();
+
         if (!selfMember.hasPermission(Permission.BAN_MEMBERS) || !selfMember.canInteract(target)) {
              embedBuilder.setTitle("FastBOT | Error!")
                      .setColor(Color.RED)
                      .setDescription("I'm don't have permissions to ban the specified person.")
-                     .setTimestamp(new Date().toInstant())
+                     .setTimestamp(date.toInstant())
                      .setFooter("FastBOT");
              textChannel.sendMessage(embedBuilder.build()).queue();
              return;
@@ -44,8 +46,8 @@ public class BanCommand extends Command {
 
         embedBuilder.setTitle("FastBOT | Ban")
                 .setColor(Color.GREEN)
-                .setDescription("Successfully banned member!\nAdmin: **" + commandAuthor.getAsMention() + "**\nBanned member: **" + target.getAsMention() + "**\nReason: **" + reason + "**")
-                .setTimestamp(new Date().toInstant())
+                .setDescription(String.format("Successfully banned member!\n**Admin: **%s**\nBanned member: **%s**\nReason: **%s", commandAuthor.getAsMention(), target.getAsMention(), reason))
+                .setTimestamp(date.toInstant())
                 .setFooter("FastBOT");
         textChannel.sendMessage(embedBuilder.build()).queue();
 

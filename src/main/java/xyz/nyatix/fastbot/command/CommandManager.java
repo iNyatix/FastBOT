@@ -35,12 +35,14 @@ public class CommandManager {
     public static void executeCommand(TextChannel textChannel, String[] args, Member commandAuthor, GuildMessageReceivedEvent event) {
         Optional<Command> commandOptional = commandsList.stream().filter(command -> (FastBOT.getInstance().getConfigManager().getConfig().getPrefix() + command.getCommand()).equalsIgnoreCase(args[0])).findFirst();
 
+        Date date = new Date();
+
         if (!commandOptional.isPresent()) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("FastBOT | Error!")
                     .setColor(Color.RED)
                     .setDescription("Command not found!")
-                    .setTimestamp(new Date().toInstant())
+                    .setTimestamp(date.toInstant())
                     .setFooter("FastBOT");
             textChannel.sendMessage(embedBuilder.build()).queue();
             return;
@@ -53,7 +55,7 @@ public class CommandManager {
                     .setTitle("FastBOT | Error!")
                     .setColor(Color.RED)
                     .setDescription("You don't have permissions to use this command!")
-                    .setTimestamp(new Date().toInstant())
+                    .setTimestamp(date.toInstant())
                     .setFooter("FastBOT");
             textChannel.sendMessage(embedBuilder.build()).queue();
             return;
@@ -65,8 +67,8 @@ public class CommandManager {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("FastBOT | Error!")
                     .setColor(Color.RED)
-                    .setDescription("Correct usage: **" + FastBOT.getInstance().getConfigManager().getConfig().getPrefix() + command.getCommand() + " " + command.getUsage() + "**")
-                    .setTimestamp(new Date().toInstant())
+                    .setDescription(String.format("Correct usage: **%s %s**", FastBOT.getInstance().getConfigManager().getConfig().getPrefix() + command.getCommand(), command.getUsage()))
+                    .setTimestamp(date.toInstant())
                     .setFooter("FastBOT");
             textChannel.sendMessage(embedBuilder.build()).queue();
             return;

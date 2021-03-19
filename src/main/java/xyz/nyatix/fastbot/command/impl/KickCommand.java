@@ -32,11 +32,13 @@ public class KickCommand extends Command {
             reason.append(args[i]).append(" ");
         }
 
+        Date date = new Date();
+
         if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target)) {
             embedBuilder.setTitle("FastBOT | Error!")
                     .setColor(Color.RED)
                     .setDescription("I'm don't have permissions to kick the specified person.")
-                    .setTimestamp(new Date().toInstant())
+                    .setTimestamp(date.toInstant())
                     .setFooter("FastBOT");
             textChannel.sendMessage(embedBuilder.build()).queue();
             return;
@@ -44,8 +46,8 @@ public class KickCommand extends Command {
 
         embedBuilder.setTitle("FastBOT | Kick")
                 .setColor(Color.GREEN)
-                .setDescription("Successfully kicked member!\nAdmin: **" + commandAuthor.getAsMention() + "**\nKicked member: **" + target.getAsMention() + "**\nReason: **" + reason + "**")
-                .setTimestamp(new Date().toInstant())
+                .setDescription(String.format("Successfully kicked member!\n**Admin: **%s**\nKicked member: **%s**\nReason: **%s", commandAuthor.getAsMention(), target.getAsMention(), reason))
+                .setTimestamp(date.toInstant())
                 .setFooter("FastBOT");
         textChannel.sendMessage(embedBuilder.build()).queue();
 

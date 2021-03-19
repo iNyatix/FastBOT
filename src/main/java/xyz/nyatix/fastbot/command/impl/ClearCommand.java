@@ -37,7 +37,7 @@ public class ClearCommand extends Command {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("FastBOT | Error!")
                     .setColor(Color.RED)
-                    .setDescription("Correct usage: **" + getCommand() + " " + getUsage() + "**")
+                    .setDescription(String.format("Correct usage: **%s %s**", getCommand(), getUsage()))
                     .setTimestamp(new Date().toInstant())
                     .setFooter("FastBOT");
             textChannel.sendMessage(embedBuilder.build()).queue();

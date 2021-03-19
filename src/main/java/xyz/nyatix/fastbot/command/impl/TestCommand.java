@@ -18,7 +18,7 @@ public class TestCommand extends Command {
     @Override
     public void executeCommand(TextChannel textChannel, String[] args, Member commandAuthor, GuildMessageReceivedEvent event) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle("FlashBOT | Test")
+        embedBuilder.setTitle("FastBOT | Test")
                 .setColor(Color.GREEN)
                 .setDescription("This is example command...")
                 .setTimestamp(new Date().toInstant())
