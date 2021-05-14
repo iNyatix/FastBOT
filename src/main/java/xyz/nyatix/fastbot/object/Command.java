@@ -1,4 +1,4 @@
-package xyz.nyatix.fastbot.command;
+package xyz.nyatix.fastbot.object;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

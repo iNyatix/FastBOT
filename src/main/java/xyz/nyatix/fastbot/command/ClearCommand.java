@@ -1,4 +1,4 @@
-package xyz.nyatix.fastbot.command.impl;
+package xyz.nyatix.fastbot.command;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import xyz.nyatix.fastbot.command.Command;
+import xyz.nyatix.fastbot.object.Command;
 
 import java.awt.*;
 import java.util.Date;

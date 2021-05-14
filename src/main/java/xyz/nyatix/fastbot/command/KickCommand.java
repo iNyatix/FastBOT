@@ -1,19 +1,19 @@
-package xyz.nyatix.fastbot.command.impl;
+package xyz.nyatix.fastbot.command;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import xyz.nyatix.fastbot.command.Command;
+import xyz.nyatix.fastbot.object.Command;
 
 import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
-public class BanCommand extends Command {
-    public BanCommand() {
-        super("ban", "[member] [reason]", Permission.BAN_MEMBERS);
+public class KickCommand extends Command {
+    public KickCommand() {
+        super("kick", "[member] [reason]", Permission.KICK_MEMBERS);
     }
 
     @Override
@@ -34,23 +34,23 @@ public class BanCommand extends Command {
 
         Date date = new Date();
 
-        if (!selfMember.hasPermission(Permission.BAN_MEMBERS) || !selfMember.canInteract(target)) {
-             embedBuilder.setTitle("FastBOT | Error!")
-                     .setColor(Color.RED)
-                     .setDescription("I'm don't have permissions to ban the specified person.")
-                     .setTimestamp(date.toInstant())
-                     .setFooter("FastBOT");
-             textChannel.sendMessage(embedBuilder.build()).queue();
-             return;
+        if (!selfMember.hasPermission(Permission.KICK_MEMBERS) || !selfMember.canInteract(target)) {
+            embedBuilder.setTitle("FastBOT | Error!")
+                    .setColor(Color.RED)
+                    .setDescription("I'm don't have permissions to kick the specified person.")
+                    .setTimestamp(date.toInstant())
+                    .setFooter("FastBOT");
+            textChannel.sendMessage(embedBuilder.build()).queue();
+            return;
         }
 
-        embedBuilder.setTitle("FastBOT | Ban")
+        embedBuilder.setTitle("FastBOT | Kick")
                 .setColor(Color.GREEN)
-                .setDescription(String.format("Successfully banned member!\n**Admin: **%s**\nBanned member: **%s**\nReason: **%s", commandAuthor.getAsMention(), target.getAsMention(), reason))
+                .setDescription(String.format("Successfully kicked member!\n**Admin: **%s**\nKicked member: **%s**\nReason: **%s", commandAuthor.getAsMention(), target.getAsMention(), reason))
                 .setTimestamp(date.toInstant())
                 .setFooter("FastBOT");
         textChannel.sendMessage(embedBuilder.build()).queue();
 
-        event.getGuild().ban(target, 1).queue();
+        event.getGuild().kick(target).queue();
     }
 }

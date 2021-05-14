@@ -18,6 +18,7 @@ public class ConfigManager {
     public ConfigManager(File file) {
         this.file = file;
         this.config = new Config();
+        loadConfig();
     }
 
     @SneakyThrows

@@ -1,17 +1,18 @@
-package xyz.nyatix.fastbot.command;
+package xyz.nyatix.fastbot.manager;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import xyz.nyatix.fastbot.FastBOT;
-import xyz.nyatix.fastbot.command.impl.*;
+import xyz.nyatix.fastbot.command.BanCommand;
+import xyz.nyatix.fastbot.command.ClearCommand;
+import xyz.nyatix.fastbot.command.KickCommand;
+import xyz.nyatix.fastbot.object.Command;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 
 public class CommandManager {
 
@@ -25,11 +26,14 @@ public class CommandManager {
         commandsList.add(command);
     }
 
-    public void init() {
-        addCommand(new TestCommand());
-        addCommand(new BanCommand());
-        addCommand(new KickCommand());
-        addCommand(new ClearCommand());
+    public void loadCommands() {
+        for (Command command : Arrays.asList(
+                new BanCommand(),
+                new ClearCommand(),
+                new KickCommand()
+        )) {
+            addCommand(command);
+        }
     }
 
     public static void executeCommand(TextChannel textChannel, String[] args, Member commandAuthor, GuildMessageReceivedEvent event) {

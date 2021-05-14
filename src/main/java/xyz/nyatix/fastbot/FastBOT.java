@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import xyz.nyatix.fastbot.command.CommandManager;
+import xyz.nyatix.fastbot.manager.CommandManager;
 import xyz.nyatix.fastbot.listener.GuildMessageReceivedListener;
 import xyz.nyatix.fastbot.manager.ConfigManager;
 
@@ -22,7 +22,6 @@ public class FastBOT {
     public FastBOT() {
         instance = this;
         configManager = new ConfigManager(new File("FastBOT/config.json"));
-        configManager.loadConfig();
         commandManager = new CommandManager();
     }
 
@@ -36,7 +35,7 @@ public class FastBOT {
         System.out.println();
         long start = System.currentTimeMillis();
         System.out.println("» Loading commands...");
-        commandManager.init();
+        commandManager.loadCommands();
         System.out.println("» Loaded " + commandManager.getCommands().size() + " commands!");
         System.out.println("» Starting bot...");
         JDABuilder.createDefault(configManager.getConfig().getToken())
