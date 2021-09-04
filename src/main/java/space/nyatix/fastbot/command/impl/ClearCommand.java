@@ -1,47 +1,45 @@
-package xyz.nyatix.fastbot.command;
+package space.nyatix.fastbot.command.impl;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import xyz.nyatix.fastbot.object.Command;
+import space.nyatix.fastbot.command.CommandInfo;
+import space.nyatix.fastbot.object.Command;
 
 import java.awt.*;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Nyatix
+ * @created 04.09.2021 - 20:43
+ */
+@CommandInfo(name = "clear", usage = "[amount(2-100)]", permission = Permission.MESSAGE_MANAGE)
 public class ClearCommand extends Command {
-    public ClearCommand() {
-        super("clear", "[amount(2-100)]", Permission.MESSAGE_MANAGE);
-    }
-
     @Override
-    public void executeCommand(TextChannel textChannel, String[] args, Member commandAuthor, GuildMessageReceivedEvent event) {
+    public void executeCommand(String[] args, TextChannel channel, Member sender, GuildMessageReceivedEvent event) {
+        var embedBuilder = new EmbedBuilder();
         try {
-            List<Message> messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(args[1])).complete();
+            var messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(args[1])).complete();
 
             event.getChannel().deleteMessages(messages).queue();
 
-            EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("FastBOT | Clear")
                     .setColor(Color.GREEN)
                     .setDescription("Successfully deleted **" + messages.size() + "** messages!")
                     .setTimestamp(new Date().toInstant())
                     .setFooter("FastBOT");
-            textChannel.sendMessage(embedBuilder.build()).queue(message -> message.delete().queueAfter(5, TimeUnit.SECONDS));
+            channel.sendMessage(embedBuilder.build()).queue(message -> message.delete().queueAfter(5, TimeUnit.SECONDS));
             messages.clear();
         } catch (Exception IGNORED) {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("FastBOT | Error!")
                     .setColor(Color.RED)
-                    .setDescription(String.format("Correct usage: **%s %s**", getCommand(), getUsage()))
+                    .setDescription(String.format("Correct usage: **%s %s**", getName(), getUsage()))
                     .setTimestamp(new Date().toInstant())
                     .setFooter("FastBOT");
-            textChannel.sendMessage(embedBuilder.build()).queue();
+            channel.sendMessage(embedBuilder.build()).queue();
         }
-
     }
 }
