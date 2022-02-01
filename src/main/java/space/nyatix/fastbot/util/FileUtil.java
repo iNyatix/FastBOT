@@ -16,7 +16,7 @@ public class FileUtil {
         if (FastBOT.getInstance().getBotFiles().mkdir())
             System.out.println("» Bot directory files was created!");
 
-        for (String fileName : Arrays.asList(
+        /*for (String fileName : Arrays.asList(
                 "config.json"
         )) {
             try {
@@ -26,7 +26,7 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
     }
 
